@@ -7,8 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
@@ -16,12 +14,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.JFormattedTextField;
+import javax.swing.JList;
+
 
 public class Labs {
 
 	private JFrame frame;
 	private ShipPanel panel;
 	private JFormattedTextField formattedTextField;
+	private JList list;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -50,21 +52,21 @@ public class Labs {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1081, 511);
+		frame.setBounds(100, 100, 1081, 587);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		panel = new ShipPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(21, 24, 845, 402);
+		panel.setBounds(21, 24, 845, 447);
 		frame.getContentPane().add(panel);
 		
 		JLabel lblColor = new JLabel("Color:");
-		lblColor.setBounds(479, 441, 46, 14);
+		lblColor.setBounds(486, 518, 46, 14);
 		frame.getContentPane().add(lblColor);
 		
 		JLabel lblColor_1 = new JLabel("Color:");
-		lblColor_1.setBounds(572, 441, 46, 14);
+		lblColor_1.setBounds(592, 518, 46, 14);
 		frame.getContentPane().add(lblColor_1);
 		
 		JButton bodyColorSwitcher = new JButton("");
@@ -75,7 +77,7 @@ public class Labs {
 				bodyColorSwitcher.setBackground(tmp);
 			}
 		});
-		bodyColorSwitcher.setBounds(516, 437, 46, 23);
+		bodyColorSwitcher.setBounds(524, 509, 46, 23);
 		frame.getContentPane().add(bodyColorSwitcher);
 		
 		JButton dopColorSwitcher = new JButton("");
@@ -86,7 +88,7 @@ public class Labs {
 			}
 		});
 		dopColorSwitcher.setBackground(Color.BLUE);
-		dopColorSwitcher.setBounds(608, 437, 46, 23);
+		dopColorSwitcher.setBounds(637, 509, 46, 23);
 		frame.getContentPane().add(dopColorSwitcher);
 		
 		JButton btnNewButton = new JButton("MotorShip");
@@ -97,7 +99,7 @@ public class Labs {
 				panel.repaint();
 			}
 		});
-		btnNewButton.setBounds(21, 437, 214, 23);
+		btnNewButton.setBounds(10, 514, 214, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("UltaMegaBuffSuperMotorShip");
@@ -108,12 +110,12 @@ public class Labs {
 				panel.repaint();
 			}
 		});
-		btnNewButton_1.setBounds(245, 437, 214, 23);
+		btnNewButton_1.setBounds(250, 514, 214, 23);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		SmallShipPanel panel_1 = new SmallShipPanel();
 		panel_1.setBorder(new TitledBorder(null, "\u041A\u043E\u0440\u0430\u0431\u043B\u044C", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(902, 190, 140, 221);
+		panel_1.setBounds(895, 250, 140, 221);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -139,5 +141,43 @@ public class Labs {
 		formattedTextField = new JFormattedTextField();
 		formattedTextField.setBounds(84, 29, 46, 20);
 		panel_1.add(formattedTextField);
+		String[] str = new String[5];
+		for(int i = 1;i<6;i++) {
+			str[i-1] = "Уровень " + i;
+		}
+		list = new JList(str);
+		list.enable(false);
+		list.setSelectedIndex(0);
+		list.setBounds(895, 47, 140, 115);
+		frame.getContentPane().add(list);
+		
+		JButton btnNewButton_3 = new JButton("<<");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int select = list.getSelectedIndex();
+				if(select>0) {
+					list.setSelectedIndex(select - 1);
+					panel.lvlDown();
+					panel.repaint();
+				}
+			}
+		});
+		btnNewButton_3.setBounds(895, 173, 49, 37);
+		frame.getContentPane().add(btnNewButton_3);
+		
+		JButton button = new JButton(">>");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int select = list.getSelectedIndex();
+				if(select<5) {
+					list.setSelectedIndex(select + 1);
+					panel.lvlUp();
+					panel.repaint();
+				}
+				
+			}
+		});
+		button.setBounds(985, 173, 49, 37);
+		frame.getContentPane().add(button);
 	}
 }

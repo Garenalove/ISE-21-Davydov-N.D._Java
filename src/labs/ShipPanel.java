@@ -11,7 +11,7 @@ public class ShipPanel extends JPanel {
 	
 	public ShipPanel() {
 		super();
-		parking = new Parking();
+		parking = new Parking(5);
 		
 	}
 	@Override
@@ -23,6 +23,14 @@ public class ShipPanel extends JPanel {
 			ship = null;
 		}
 		parking.drawShips(g);
+	}
+	
+	public void lvlUp() {
+		parking.lvlUp();
+	}
+	
+	public void lvlDown() {
+		parking.lvlDown();
 	}
 	
 	public void setShip(ITransport ship) {
