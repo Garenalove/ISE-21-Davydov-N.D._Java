@@ -9,7 +9,7 @@ public class ClassArray<T extends ITransport> {
 	
 	public ClassArray(int size, T defaultValue) {
 		this.defaultValue = defaultValue;
-		places = new HashMap();
+		places = new HashMap<Integer, T>();
 		this.maxCount = size;
 	}
 	

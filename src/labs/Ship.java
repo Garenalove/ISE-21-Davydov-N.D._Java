@@ -13,7 +13,6 @@ public abstract class Ship implements ITransport {
 	protected Color colorBody;
 	protected float weight;
 	
-	
 	@Override
 	public abstract void moveCar();
 
@@ -25,6 +24,11 @@ public abstract class Ship implements ITransport {
 		this.posX = x;
 		this.posY = y;
 		
+	}
+	
+	@Override
+	public void setBodyColor(Color c) {
+		colorBody = c;
 	}
 
 	@Override

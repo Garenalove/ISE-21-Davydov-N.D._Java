@@ -52,7 +52,7 @@ public class Labs {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1081, 587);
+		frame.setBounds(100, 100, 1069, 517);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -61,61 +61,25 @@ public class Labs {
 		panel.setBounds(21, 24, 845, 447);
 		frame.getContentPane().add(panel);
 		
-		JLabel lblColor = new JLabel("Color:");
-		lblColor.setBounds(486, 518, 46, 14);
-		frame.getContentPane().add(lblColor);
-		
-		JLabel lblColor_1 = new JLabel("Color:");
-		lblColor_1.setBounds(592, 518, 46, 14);
-		frame.getContentPane().add(lblColor_1);
-		
-		JButton bodyColorSwitcher = new JButton("");
-		bodyColorSwitcher.setBackground(Color.BLUE);
-		bodyColorSwitcher.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color tmp = JColorChooser.showDialog(frame, "Выберите цвет", null);
-				bodyColorSwitcher.setBackground(tmp);
-			}
-		});
-		bodyColorSwitcher.setBounds(524, 509, 46, 23);
-		frame.getContentPane().add(bodyColorSwitcher);
-		
-		JButton dopColorSwitcher = new JButton("");
-		dopColorSwitcher.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color tmp = JColorChooser.showDialog(frame, "Выберите цвет", null);
-				dopColorSwitcher.setBackground(tmp);
-			}
-		});
-		dopColorSwitcher.setBackground(Color.BLUE);
-		dopColorSwitcher.setBounds(637, 509, 46, 23);
-		frame.getContentPane().add(dopColorSwitcher);
-		
-		JButton btnNewButton = new JButton("MotorShip");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ITransport s = new MotorShip(50,5,100,bodyColorSwitcher.getBackground());
-				panel.setShip(s);
-				panel.repaint();
-			}
-		});
-		btnNewButton.setBounds(10, 514, 214, 23);
-		frame.getContentPane().add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("UltaMegaBuffSuperMotorShip");
+		JButton btnNewButton_1 = new JButton("\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u043A\u043E\u0440\u0430\u0431\u043B\u044C");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel.setShip(new UltaMegaBuffSuperMotorShip(50,5,100,bodyColorSwitcher.getBackground(),
-						true,true,dopColorSwitcher.getBackground()));
-				panel.repaint();
+				AdditionalForm additionalForm = new AdditionalForm(new ShipCallBack() {
+					@Override
+					public void takeShip(ITransport ship) {
+						panel.setShip(ship);
+						panel.repaint();
+					}
+				});
+				
 			}
 		});
-		btnNewButton_1.setBounds(250, 514, 214, 23);
+		btnNewButton_1.setBounds(895, 203, 140, 37);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		SmallShipPanel panel_1 = new SmallShipPanel();
 		panel_1.setBorder(new TitledBorder(null, "\u041A\u043E\u0440\u0430\u0431\u043B\u044C", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(895, 250, 140, 221);
+		panel_1.setBounds(895, 251, 140, 221);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -148,7 +112,7 @@ public class Labs {
 		list = new JList(str);
 		list.enable(false);
 		list.setSelectedIndex(0);
-		list.setBounds(895, 47, 140, 115);
+		list.setBounds(895, 24, 140, 115);
 		frame.getContentPane().add(list);
 		
 		JButton btnNewButton_3 = new JButton("<<");
@@ -162,7 +126,7 @@ public class Labs {
 				}
 			}
 		});
-		btnNewButton_3.setBounds(895, 173, 49, 37);
+		btnNewButton_3.setBounds(895, 155, 49, 37);
 		frame.getContentPane().add(btnNewButton_3);
 		
 		JButton button = new JButton(">>");
@@ -177,7 +141,7 @@ public class Labs {
 				
 			}
 		});
-		button.setBounds(985, 173, 49, 37);
+		button.setBounds(985, 155, 49, 37);
 		frame.getContentPane().add(button);
 	}
 }
