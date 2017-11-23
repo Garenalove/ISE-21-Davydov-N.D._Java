@@ -9,12 +9,21 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.JFormattedTextField;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JToolBar;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 
 public class Labs {
@@ -143,5 +152,44 @@ public class Labs {
 		});
 		button.setBounds(985, 155, 49, 37);
 		frame.getContentPane().add(button);
+		
+		JMenuBar menuBar = new JMenuBar();
+		JMenu file = new JMenu("Файл");
+		JMenuItem save = new JMenuItem("Сохранить");
+		JMenuItem load = new JMenuItem("Загрузить");
+		save.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fc = new JFileChooser();  
+				if (fc.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {  
+				    try {  
+				        FileOutputStream fileStream = new FileOutputStream(fc.getSelectedFile());  
+				        ObjectOutputStream os = new ObjectOutputStream(fileStream);  
+				        os.writeObject(panel.getParking());  
+				    }  
+				    catch (Exception e) {
+				    	System.out.println("Нет доступа к файлу");
+				    }  
+				} 
+			}
+		});
+		load.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();  
+				if (fc.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {  
+					try {
+						FileInputStream inStream = new FileInputStream(fc.getSelectedFile());
+						ObjectInputStream inObject = new ObjectInputStream(inStream);
+						panel.setParking((Parking)inObject.readObject(),list.getSelectedIndex());
+					} catch (Exception ex) {
+						System.out.println("Умер бинарник");
+					}
+				}
+			}
+		});
+		file.add(save);
+		file.add(load);
+		menuBar.add(file);
+		frame.setJMenuBar(menuBar);
 	}
 }

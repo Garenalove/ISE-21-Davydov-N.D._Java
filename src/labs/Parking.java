@@ -3,9 +3,10 @@ package labs;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Parking {
+public class Parking implements Serializable {
 	
 	ArrayList<ClassArray<ITransport>> parking;
 	private int countPlaces = 20;
