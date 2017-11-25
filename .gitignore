@@ -1,3 +1,4 @@
+.project
 
 .metadata
 bin/
@@ -48,3 +49,4 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+.classpath
