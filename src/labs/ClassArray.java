@@ -1,8 +1,9 @@
 package labs;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class ClassArray<T extends ITransport> {
+public class ClassArray<T extends ITransport> implements Serializable {
 	private HashMap<Integer,T> places;
 	private int maxCount;
 	private T defaultValue;

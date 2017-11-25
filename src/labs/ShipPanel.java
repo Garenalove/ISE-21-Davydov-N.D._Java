@@ -32,6 +32,17 @@ public class ShipPanel extends JPanel {
 		parking.lvlDown();
 	}
 	
+	public void loadParking(String fileName) {
+		this.parking.loadData(fileName);
+		repaint();
+	}
+	
+	
+	public void saveParking(String fileName) {
+		this.parking.saveData(fileName);
+		repaint();
+	}
+	
 	public void setShip(ITransport ship) {
 		this.ship = ship;
 	}
