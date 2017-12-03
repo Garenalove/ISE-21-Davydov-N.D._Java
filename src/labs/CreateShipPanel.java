@@ -11,6 +11,8 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -19,9 +21,11 @@ import javax.swing.border.Border;
 public class CreateShipPanel extends JPanel implements DropTargetListener {
 
 	private ITransport ship;
+	private Logger logger;
 	
 	public CreateShipPanel() {
 		super();
+		logger = Logger.getGlobal();
 		new DropTarget(this,this);
 		this.setLayout(null);
 		DraggableLabel lblNewLabel = new DraggableLabel("\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0446\u0432\u0435\u0442",true,new ColorCallBack() {
@@ -29,6 +33,7 @@ public class CreateShipPanel extends JPanel implements DropTargetListener {
 			public void setColor(Color c) {
 				if(ship!=null) {
 					ship.setBodyColor(c);
+					logger.info("Основной цвет корабля изменен");
 				}
 				repaint();
 			}		
@@ -42,6 +47,7 @@ public class CreateShipPanel extends JPanel implements DropTargetListener {
 			public void setColor(Color c) {
 				if(ship!=null) {
 					if(ship instanceof UltaMegaBuffSuperMotorShip) {
+						logger.info("Дополнительный цвет корабля изменен");
 						((UltaMegaBuffSuperMotorShip) ship).setDopColor(c);
 					}
 				}
@@ -90,9 +96,11 @@ public class CreateShipPanel extends JPanel implements DropTargetListener {
 		    if (transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
 		    	String dragContents = (String) transferable.getTransferData(DataFlavor.stringFlavor);
 		    	if(dragContents.equals("MotorShip")) {
+					logger.info("Выбран корабль: MotorShip");
 		    		ship = new MotorShip(50,5,100,Color.black);
 		    		repaint();
 		    	} else if(dragContents.equals("UltraShip")) {
+					logger.info("Выбран корабль: UltraShip");
 		    		ship = new UltaMegaBuffSuperMotorShip(50,5,100,Color.BLACK,true,true,Color.BLACK);
 		    		repaint();
 		    	} else {

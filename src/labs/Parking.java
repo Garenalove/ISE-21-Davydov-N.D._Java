@@ -26,17 +26,22 @@ public class Parking implements Serializable {
 		} 
 	}
 	
-	public int putShipInParking(ITransport ship) {
+	public int putShipInParking(ITransport ship) throws DockOverflowException {
 		return parking.get(curentLvl).addShip(ship);
 	}
 	
-	public ITransport getShipInParking(int ticket) {
+	public ITransport getShipInParking(int ticket) throws DockIndexOutOfRangeException {
 		return parking.get(curentLvl).getShip(ticket);
 	}
 	
 	public void drawShips(Graphics g) {
 		for(int i = 0;i<countPlaces;i++) {
-			ITransport ship = parking.get(curentLvl).popShip(i);
+			ITransport ship = null;
+			try {
+				ship = parking.get(curentLvl).popShip(i);
+			} catch (DockIndexOutOfRangeException e) {
+				e.getMessage();
+			}
 			if(ship!=null) {
 				ship.setPosition(5 + i /5 * placeSizeWidth + 5, i % 5 * placeSizeHeight + 55);
 				ship.drawCar(g);
