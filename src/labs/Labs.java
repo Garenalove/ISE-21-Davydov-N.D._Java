@@ -163,9 +163,7 @@ public class Labs {
 				JFileChooser fc = new JFileChooser();  
 				if (fc.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {  
 				    try {  
-				        FileOutputStream fileStream = new FileOutputStream(fc.getSelectedFile());  
-				        ObjectOutputStream os = new ObjectOutputStream(fileStream);  
-				        os.writeObject(panel.getParking());  
+				        panel.saveParking(fc.getSelectedFile().getPath()); 
 				    }  
 				    catch (Exception e) {
 				    	System.out.println("Нет доступа к файлу");
@@ -177,13 +175,7 @@ public class Labs {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();  
 				if (fc.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {  
-					try {
-						FileInputStream inStream = new FileInputStream(fc.getSelectedFile());
-						ObjectInputStream inObject = new ObjectInputStream(inStream);
-						panel.setParking((Parking)inObject.readObject(),list.getSelectedIndex());
-					} catch (Exception ex) {
-						System.out.println("Умер бинарник");
-					}
+					panel.loadParking(fc.getSelectedFile().getPath());
 				}
 			}
 		});
