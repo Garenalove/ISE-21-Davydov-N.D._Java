@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
-public class UltaMegaBuffSuperMotorShip extends MotorShip {
+public class UltaMegaBuffSuperMotorShip extends MotorShip{
 	
 	private boolean pipe;
 	private boolean boat;
@@ -45,6 +45,60 @@ public class UltaMegaBuffSuperMotorShip extends MotorShip {
             points.addPoint(posX+15, posY+7);
             g.drawPolygon(points);
         }
+	}
+	
+	@Override
+	public int compareTo(Object other) {
+		UltaMegaBuffSuperMotorShip o  = null;
+		if(other == null) {
+			return 1;
+		}
+		if(other instanceof UltaMegaBuffSuperMotorShip) {
+			o = (UltaMegaBuffSuperMotorShip)other;
+		} else {
+			return 1;
+		}
+		int res = super.compareTo(o);
+		if(res != 0) {
+			return res;
+		}
+		if(pipe != o.pipe) {
+			return pipe ? 1 : -1;
+		}
+		if(boat != o.boat) {
+			return boat ? 1 : -1;
+		}
+		if(dopColor.getRGB() != o.dopColor.getRGB()) {
+			return dopColor.getRGB()>o.dopColor.getRGB() ? 1 : -1;
+		}
+		return 0;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if(other == null) {
+			return false;
+		}
+		UltaMegaBuffSuperMotorShip o  = null;
+		if(other instanceof UltaMegaBuffSuperMotorShip) {
+			o = (UltaMegaBuffSuperMotorShip)other;
+		} else {
+			return false;
+		}
+		boolean res = super.equals(o);
+		if(!res) {
+			return res;
+		}
+		if(pipe != o.pipe) {
+			return false;
+		}
+		if(boat != o.boat) {
+			return false;
+		}
+		if(dopColor.getRGB()!=o.dopColor.getRGB()) {
+			return false;
+		}
+		return true;
 	}
 
 }

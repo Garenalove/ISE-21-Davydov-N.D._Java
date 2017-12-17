@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Parking implements Serializable {
 	
@@ -26,7 +27,7 @@ public class Parking implements Serializable {
 		} 
 	}
 	
-	public int putShipInParking(ITransport ship) throws DockOverflowException {
+	public int putShipInParking(ITransport ship) throws DockOverflowException, DockAlreadyHaveException {
 		return parking.get(curentLvl).addShip(ship);
 	}
 	
@@ -35,18 +36,16 @@ public class Parking implements Serializable {
 	}
 	
 	public void drawShips(Graphics g) {
-		for(int i = 0;i<countPlaces;i++) {
-			ITransport ship = null;
-			try {
-				ship = parking.get(curentLvl).popShip(i);
-			} catch (DockIndexOutOfRangeException e) {
-				e.getMessage();
-			}
-			if(ship!=null) {
-				ship.setPosition(5 + i /5 * placeSizeWidth + 5, i % 5 * placeSizeHeight + 55);
-				ship.drawCar(g);
-			}
+		int i = 0;
+		for(ITransport ship : parking.get(curentLvl)) {
+			ship.setPosition(5 + i /5 * placeSizeWidth + 5, i % 5 * placeSizeHeight + 55);
+			ship.drawCar(g);
+			i++;
 		}
+	}
+	
+	public void sort() {
+		Collections.sort(parking);
 	}
 	
 	public void drawMarking(Graphics g) {
