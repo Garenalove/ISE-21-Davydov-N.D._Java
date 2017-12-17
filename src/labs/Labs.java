@@ -14,8 +14,12 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.JFormattedTextField;
@@ -32,6 +36,7 @@ public class Labs {
 	private ShipPanel panel;
 	private JFormattedTextField formattedTextField;
 	private JList list;
+	private Logger logger;
 	
 	/**
 	 * Launch the application.
@@ -51,15 +56,23 @@ public class Labs {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
+	 * @throws SecurityException 
 	 */
-	public Labs() {
+	public Labs() throws SecurityException, IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
+	 * @throws SecurityException 
 	 */
-	private void initialize() {
+	private void initialize() throws SecurityException, IOException {
+		logger = Logger.getGlobal();
+		Handler h = new FileHandler();
+		logger.addHandler(h);
+		logger.setUseParentHandlers(false);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1069, 517);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,6 +86,7 @@ public class Labs {
 		JButton btnNewButton_1 = new JButton("\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u043A\u043E\u0440\u0430\u0431\u043B\u044C");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Начато создание корабля");
 				AdditionalForm additionalForm = new AdditionalForm(new ShipCallBack() {
 					@Override
 					public void takeShip(ITransport ship) {
@@ -129,10 +143,12 @@ public class Labs {
 			public void actionPerformed(ActionEvent e) {
 				int select = list.getSelectedIndex();
 				if(select>0) {
-					list.setSelectedIndex(select - 1);
+					select--;
+					list.setSelectedIndex(select);
 					panel.lvlDown();
 					panel.repaint();
 				}
+				logger.info("Попытка понизить уровень. Текущий уровень: " + select);
 			}
 		});
 		btnNewButton_3.setBounds(895, 155, 49, 37);
@@ -143,10 +159,12 @@ public class Labs {
 			public void actionPerformed(ActionEvent e) {
 				int select = list.getSelectedIndex();
 				if(select<5) {
-					list.setSelectedIndex(select + 1);
+					select++;
+					list.setSelectedIndex(select);
 					panel.lvlUp();
 					panel.repaint();
 				}
+				logger.info("Попытка повысить уровень. Текущий уровень:" + select);
 				
 			}
 		});

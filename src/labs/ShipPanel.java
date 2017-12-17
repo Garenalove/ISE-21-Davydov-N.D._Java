@@ -1,26 +1,44 @@
 package labs;
 
 import java.awt.Graphics;
+import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ShipPanel extends JPanel {
 	private ITransport ship;
 	private Parking parking;
-	
+	private Logger logger;
 	public ShipPanel() {
 		super();
 		parking = new Parking(5);
+		logger = Logger.getGlobal();
 		
 	}
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
-		parking.drawMarking(g);
 		if(ship!=null) {
-			parking.putShipInParking(ship);
+			try {
+				parking.putShipInParking(ship);
+				logger.info("Корабль добавлен в доки");
+			} catch (DockOverflowException e) {
+				logger.info(e.getMessage());
+				JOptionPane.showMessageDialog(null,
+					    e.getMessage(),
+					    e.getMessage(),
+					    JOptionPane.ERROR_MESSAGE);
+			} catch(Exception e) {
+				logger.info(e.getMessage());
+				JOptionPane.showMessageDialog(null,
+					    e.getMessage(),
+					    e.getMessage(),
+					    JOptionPane.ERROR_MESSAGE);
+			}
 			ship = null;
 		}
+		super.paint(g);
+		parking.drawMarking(g);
 		parking.drawShips(g);
 	}
 	
@@ -47,6 +65,23 @@ public class ShipPanel extends JPanel {
 		this.ship = ship;
 	}
 	public ITransport getShip(int index) {
-		return parking.getShipInParking(index);
+		try {
+			ITransport ship = parking.getShipInParking(index);
+			logger.info("Взят корабль под номером: " + index);
+			return ship;
+		} catch (DockIndexOutOfRangeException e) {
+			logger.info(e.getMessage());
+			JOptionPane.showMessageDialog(null,
+				    e.getMessage(),
+				    e.getMessage(),
+				    JOptionPane.ERROR_MESSAGE);
+		} catch(Exception e) {
+			logger.info(e.getMessage());
+			JOptionPane.showMessageDialog(null,
+				    e.getMessage(),
+				    e.getMessage(),
+				    JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
 	}
 }

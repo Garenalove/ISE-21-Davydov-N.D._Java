@@ -14,30 +14,30 @@ public class ClassArray<T extends ITransport> implements Serializable {
 		this.maxCount = size;
 	}
 	
-	public int addShip(T ship) {
+	public int addShip(T ship) throws DockOverflowException {
 		for(int i = 0;i<maxCount;i++) {
 			if(checkFreePlace(i)) {
 				places.put(i, ship);
 				return i;
 			}
 		}
-		return -1;
+		throw new DockOverflowException();
 	}
 	
-	public T getShip(int index) {
+	public T getShip(int index) throws DockIndexOutOfRangeException {
 		if(!checkFreePlace(index)) {
 			T ship = places.get(index);
 			places.remove(index);
 			return ship;
 		}
-		return defaultValue;
+		throw new DockIndexOutOfRangeException();
 	}
 	
-	public T popShip(int index) {
+	public T popShip(int index) throws DockIndexOutOfRangeException {
 		if(!checkFreePlace(index)) {
 			return places.get(index);
 		}
-		return defaultValue;
+		throw new DockIndexOutOfRangeException();
 	}
 	
 	private boolean checkFreePlace(int index) {
