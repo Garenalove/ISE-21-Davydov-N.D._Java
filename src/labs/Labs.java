@@ -74,7 +74,7 @@ public class Labs {
 		logger.addHandler(h);
 		logger.setUseParentHandlers(false);
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1069, 517);
+		frame.setBounds(100, 100, 1069, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -170,6 +170,15 @@ public class Labs {
 		});
 		button.setBounds(985, 155, 49, 37);
 		frame.getContentPane().add(button);
+		
+		JButton btnNewButton = new JButton("Sort");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panel.sort();
+			}
+		});
+		btnNewButton.setBounds(920, 472, 89, 23);
+		frame.getContentPane().add(btnNewButton);
 		
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("Τΰιλ");

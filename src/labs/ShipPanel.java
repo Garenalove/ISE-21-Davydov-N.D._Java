@@ -28,6 +28,12 @@ public class ShipPanel extends JPanel {
 					    e.getMessage(),
 					    e.getMessage(),
 					    JOptionPane.ERROR_MESSAGE);
+			} catch (DockAlreadyHaveException e) {
+				logger.info(e.getMessage());
+				JOptionPane.showMessageDialog(null,
+					    e.getMessage(),
+					    e.getMessage(),
+					    JOptionPane.ERROR_MESSAGE);
 			} catch(Exception e) {
 				logger.info(e.getMessage());
 				JOptionPane.showMessageDialog(null,
@@ -83,5 +89,10 @@ public class ShipPanel extends JPanel {
 				    JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
+	}
+	
+	public void sort() {
+		this.parking.sort();
+		repaint();
 	}
 }

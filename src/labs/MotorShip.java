@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.Random;
 
-public class MotorShip extends Ship{
+import javax.print.attribute.standard.MediaSize.Other;
+
+public class MotorShip extends Ship implements Comparable<Object>{
 	
 	public MotorShip(int maxSpeed,int maxCountPassengers, float weight,Color color) {
 		this.colorBody = color;
@@ -89,6 +91,58 @@ public class MotorShip extends Ship{
 		} else {
 			super.weight = 1000;
 		}
+	}
+
+	@Override
+	public int compareTo(Object other) {
+		MotorShip o = null;
+		if(other == null) {
+			return 1;
+		}
+		if(other instanceof MotorShip) {
+			o = (MotorShip)other;
+		} else {
+			return 1;
+		}
+		if(maxSpeed != o.maxSpeed) {
+			return maxSpeed > o.maxSpeed ? 1 : -1;
+		}
+		if(maxCountPassengers != o.maxCountPassengers) {
+			return maxCountPassengers > o.maxCountPassengers ? 1 : -1;
+		}
+		if(weight != o.weight) {
+			return weight > o.weight ? 1 : -1;
+		}
+		if(colorBody.getRGB() != o.colorBody.getRGB()) {
+			return colorBody.getRGB() > o.colorBody.getRGB() ? 1 : -1;
+		}
+		return 0;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == null) {
+			return false;
+		}
+		MotorShip otherShip = null;
+		if(o instanceof MotorShip) {
+			otherShip = (MotorShip)o;
+		} else {
+			return false;
+		}
+		if(maxSpeed != otherShip.maxSpeed) {
+			return false;
+		}
+		if(maxCountPassengers != otherShip.maxCountPassengers) {
+			return false;
+		}
+		if(weight != otherShip.weight) {
+			return false;
+		}
+		if(colorBody.getRGB() != otherShip.colorBody.getRGB()) {
+			return false;
+		}
+		return true;
 	}
 
 }
